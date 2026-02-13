@@ -3,6 +3,8 @@
 import {
 	CaretDownIcon,
 	CaretUpIcon,
+	EyeClosedIcon,
+	EyeIcon,
 	PlusIcon,
 	TrashIcon,
 } from "@phosphor-icons/react/ssr";
@@ -146,24 +148,9 @@ export function MatrixDimensionsForm() {
 									<CaretDownIcon />
 									Down
 								</Button>
-								<Toggle
-									// variant="outline"
-									size="sm"
-									pressed={dimension.isEnabled !== false}
-									onPressedChange={(pressed) => {
-										updateDimension(dimension.id, (current) => ({
-											...current,
-											isEnabled: pressed,
-										}));
-									}}
-								>
-									{dimension.isEnabled === false ? "Disabled" : "Active"}
-								</Toggle>
 								<AlertDialog>
 									<AlertDialogTrigger
-										render={
-											<Button type="button" variant="destructive" size="sm" />
-										}
+										render={<Button type="button" variant="ghost" size="sm" />}
 									>
 										<TrashIcon />
 										Remove
@@ -194,6 +181,23 @@ export function MatrixDimensionsForm() {
 										</AlertDialogFooter>
 									</AlertDialogContent>
 								</AlertDialog>
+								<Toggle
+									// variant="outline"
+									size="sm"
+									pressed={dimension.isEnabled !== false}
+									onPressedChange={(pressed) => {
+										updateDimension(dimension.id, (current) => ({
+											...current,
+											isEnabled: pressed,
+										}));
+									}}
+								>
+									{dimension.isEnabled === false ? (
+										<EyeClosedIcon />
+									) : (
+										<EyeIcon />
+									)}
+								</Toggle>
 							</div>
 						</div>
 
