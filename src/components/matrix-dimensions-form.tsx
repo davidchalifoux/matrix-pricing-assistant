@@ -3,10 +3,23 @@
 import {
 	CaretDownIcon,
 	CaretUpIcon,
+	EyeClosedIcon,
+	EyeIcon,
 	PlusIcon,
 	TrashIcon,
 } from "@phosphor-icons/react/ssr";
 import { useAtom } from "jotai";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,6 +29,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { Toggle } from "@/components/ui/toggle";
 import {
 	createEmptyDimension,
 	createEmptyOption,
@@ -100,9 +114,11 @@ export function MatrixDimensionsForm() {
 						className="rounded-lg border border-border bg-background p-4"
 					>
 						<div className="flex flex-wrap items-start justify-between gap-3">
-							<p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-								Dimension {dimensionIndex + 1}
-							</p>
+							<div className="space-y-1">
+								<p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+									Dimension {dimensionIndex + 1}
+								</p>
+							</div>
 							<div className="flex gap-1">
 								<Button
 									type="button"
@@ -132,19 +148,56 @@ export function MatrixDimensionsForm() {
 									<CaretDownIcon />
 									Down
 								</Button>
-								<Button
-									type="button"
-									variant="ghost"
+								<AlertDialog>
+									<AlertDialogTrigger
+										render={<Button type="button" variant="ghost" size="sm" />}
+									>
+										<TrashIcon />
+										Remove
+									</AlertDialogTrigger>
+									<AlertDialogContent>
+										<AlertDialogHeader>
+											<AlertDialogTitle>
+												Remove this dimension?
+											</AlertDialogTitle>
+											<AlertDialogDescription>
+												This removes the dimension and all of its options from
+												the matrix.
+											</AlertDialogDescription>
+										</AlertDialogHeader>
+										<AlertDialogFooter>
+											<AlertDialogCancel>Cancel</AlertDialogCancel>
+											<AlertDialogAction
+												type="button"
+												variant="destructive"
+												onClick={() => {
+													setDimensions((previous) =>
+														previous.filter((item) => item.id !== dimension.id),
+													);
+												}}
+											>
+												Yes, remove dimension
+											</AlertDialogAction>
+										</AlertDialogFooter>
+									</AlertDialogContent>
+								</AlertDialog>
+								<Toggle
+									// variant="outline"
 									size="sm"
-									onClick={() => {
-										setDimensions((previous) =>
-											previous.filter((item) => item.id !== dimension.id),
-										);
+									pressed={dimension.isEnabled !== false}
+									onPressedChange={(pressed) => {
+										updateDimension(dimension.id, (current) => ({
+											...current,
+											isEnabled: pressed,
+										}));
 									}}
 								>
-									<TrashIcon />
-									Remove
-								</Button>
+									{dimension.isEnabled === false ? (
+										<EyeClosedIcon />
+									) : (
+										<EyeIcon />
+									)}
+								</Toggle>
 							</div>
 						</div>
 

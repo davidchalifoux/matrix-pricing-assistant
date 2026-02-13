@@ -34,6 +34,7 @@ const getActiveDimensions = (
 	dimensions: MatrixDimension[],
 ): ActiveDimension[] =>
 	dimensions
+		.filter((dimension) => dimension.isEnabled !== false)
 		.map((dimension) => ({
 			...dimension,
 			options: dimension.options.filter(
