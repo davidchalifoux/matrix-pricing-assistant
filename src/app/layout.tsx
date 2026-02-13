@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const jetbrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
@@ -27,7 +28,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`dark ${jetbrainsMono.variable}`}>
 			<body className={`${geistSans.variable} antialiased`}>
-				{children}
+				<TooltipProvider>{children}</TooltipProvider>
 				<Analytics />
 			</body>
 		</html>

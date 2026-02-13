@@ -15,6 +15,7 @@ export type MatrixOption = {
 export type MatrixDimension = {
 	id: string;
 	name: string;
+	isEnabled?: boolean;
 	nameAffixMode: NameAffixMode;
 	options: MatrixOption[];
 };
@@ -34,6 +35,7 @@ export const createEmptyOption = (): MatrixOption => ({
 export const createEmptyDimension = (): MatrixDimension => ({
 	id: createId(),
 	name: "",
+	isEnabled: true,
 	nameAffixMode: "postfix",
 	options: [createEmptyOption()],
 });
