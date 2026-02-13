@@ -1,5 +1,6 @@
 import { BaseProductForm } from "@/components/base-product-form";
 import { MatrixDimensionsForm } from "@/components/matrix-dimensions-form";
+import { ResetAllStateButton } from "@/components/reset-all-state-button";
 import { VariantPreviewTable } from "@/components/variant-preview-table";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
 				<BaseProductForm />
 				<MatrixDimensionsForm />
 				<VariantPreviewTable />
+				<ResetAllStateButton />
 
 				<footer className="pt-2 text-center text-sm text-muted-foreground">
 					Made by{" "}
