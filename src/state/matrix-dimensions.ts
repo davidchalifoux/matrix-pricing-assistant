@@ -2,8 +2,6 @@
 
 import { atomWithStorage } from "jotai/utils";
 
-export type NameAffixMode = "prefix" | "postfix";
-
 export type MatrixOption = {
 	id: string;
 	name: string;
@@ -16,7 +14,6 @@ export type MatrixDimension = {
 	id: string;
 	name: string;
 	isEnabled?: boolean;
-	nameAffixMode: NameAffixMode;
 	options: MatrixOption[];
 };
 
@@ -36,7 +33,6 @@ export const createEmptyDimension = (): MatrixDimension => ({
 	id: createId(),
 	name: "",
 	isEnabled: true,
-	nameAffixMode: "postfix",
 	options: [createEmptyOption()],
 });
 
