@@ -6,7 +6,6 @@ type ActiveDimension = Omit<MatrixDimension, "options"> & {
 };
 
 type Selection = {
-	nameAffixMode: "prefix" | "postfix";
 	option: MatrixOption;
 };
 
@@ -52,7 +51,6 @@ const buildSelections = (dimensions: ActiveDimension[]): Selection[][] => {
 				dimension.options.map((option) => [
 					...selection,
 					{
-						nameAffixMode: dimension.nameAffixMode,
 						option,
 					},
 				]),
@@ -73,16 +71,14 @@ export const generateMatrixVariants = (
 	const baseSku = toSkuToken(baseProduct.sku);
 
 	return selections.map((selection, index) => {
-		const prefixAffixes = selection
-			.filter((item) => item.nameAffixMode === "prefix")
-			.map((item) => item.option.name.trim());
-		const postfixAffixes = selection
-			.filter((item) => item.nameAffixMode === "postfix")
-			.map((item) => item.option.name.trim());
+		const optionNames = selection
+			.map((item) => item.option.name.trim())
+			.filter((item) => item.length > 0);
 
-		const name = [...prefixAffixes, baseName, ...postfixAffixes]
-			.filter((item) => item.length > 0)
-			.join(" ");
+		const name =
+			optionNames.length > 0
+				? `${baseName} (${optionNames.join(", ")})`.trim()
+				: baseName;
 
 		const skuTokens = selection
 			.map(

@@ -22,13 +22,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import { Toggle } from "@/components/ui/toggle";
 import {
 	createEmptyDimension,
@@ -201,7 +194,7 @@ export function MatrixDimensionsForm() {
 							</div>
 						</div>
 
-						<div className="mt-3 grid gap-4 md:grid-cols-2">
+						<div className="mt-3 grid gap-4">
 							<div className="space-y-2">
 								<label
 									className="text-sm font-medium"
@@ -220,31 +213,6 @@ export function MatrixDimensionsForm() {
 										}));
 									}}
 								/>
-							</div>
-							<div className="space-y-2">
-								<label className="text-sm font-medium">Name Placement</label>
-								<Select
-									value={dimension.nameAffixMode}
-									onValueChange={(value) => {
-										const nextMode = value === "prefix" ? "prefix" : "postfix";
-										updateDimension(dimension.id, (current) => ({
-											...current,
-											nameAffixMode: nextMode,
-										}));
-									}}
-								>
-									<SelectTrigger className="w-full">
-										<SelectValue placeholder="Append to product name" />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectItem value="postfix">
-											Append to product name
-										</SelectItem>
-										<SelectItem value="prefix">
-											Prepend to product name
-										</SelectItem>
-									</SelectContent>
-								</Select>
 							</div>
 						</div>
 
