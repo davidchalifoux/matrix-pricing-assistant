@@ -37,9 +37,7 @@ const getActiveDimensions = (
 		.filter((dimension) => dimension.isEnabled !== false)
 		.map((dimension) => ({
 			...dimension,
-			options: dimension.options.filter(
-				(option) => option.name.trim().length > 0,
-			),
+			options: dimension.options,
 		}))
 		.filter((dimension) => dimension.options.length > 0);
 
